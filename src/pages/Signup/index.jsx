@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
-import {  useHistory} from 'react-router-dom'
+import { useHistory } from "react-router-dom"
 import "./style.css"
 
 const Signup = () => {
@@ -24,13 +24,15 @@ const Signup = () => {
     axios
       .post(process.env.REACT_APP_API_URL + "/signup", userData)
       .then((res) => {
-          setLoading(false)
+        setLoading(false)
+
         if (!res.data.success) {
           setError(res.data.message)
+        } else {
+          localStorage.setItem("token", res.data.token)
+          history.push("/")
         }
 
-        localStorage.setItem('token', res.data.token)
-        history.push('/')
       })
       .catch((err) => {
         setError(err.message)

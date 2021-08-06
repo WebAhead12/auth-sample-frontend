@@ -23,13 +23,17 @@ const Users = () => {
             Authorization: `Bearer ${token}`
         }
     }).then((res) => {
+        setLoading(false)
+
         if (!res.data.success) {
             setError(res.data.message)
         }
 
         setUsers(res.data.users)
     }).catch((err) => {
+        setLoading(false)
         setError(err.message)
+        history.push('/login')
     })
   }, [])
 
@@ -42,11 +46,14 @@ const Users = () => {
     )
   }
 
-  console.log(users)
-
   return (
     <div>
-      <h1>Titlte</h1>
+      <h1>Users</h1>
+      <ul>
+        {users.map((user, i) => (
+          <li key={i}>{user.username}, {user.email}</li>
+        ))}
+      </ul>
     </div>
   )
 }

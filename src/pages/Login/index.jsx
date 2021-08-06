@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import axios from "axios"
+import { useHistory } from "react-router-dom"
 import "./style.css"
 
 const Login = () => {
@@ -9,6 +10,7 @@ const Login = () => {
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
+  const history = useHistory()
 
   const onChange =
     (stateKey) =>
@@ -20,13 +22,18 @@ const Login = () => {
     axios
       .post(process.env.REACT_APP_API_URL + "/login", userData)
       .then((res) => {
-          setLoading(false)
+        setLoading(false)
+
         if (!res.data.success) {
           setError(res.data.message)
+        } else {
+          localStorage.setItem("token", res.data.token)
+          history.push("/")
         }
       })
       .catch((err) => {
         setError(err.message)
+        setLoading(false)
       })
   }
 
