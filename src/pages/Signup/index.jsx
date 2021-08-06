@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, {  useState } from "react"
 import axios from "axios"
 import { useHistory } from "react-router-dom"
 import "./style.css"
@@ -21,6 +21,7 @@ const Signup = () => {
 
   const onSubmit = () => {
     setLoading(true)
+    // 
     axios
       .post(process.env.REACT_APP_API_URL + "/signup", userData)
       .then((res) => {

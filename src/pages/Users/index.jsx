@@ -27,9 +27,10 @@ const Users = () => {
 
         if (!res.data.success) {
             setError(res.data.message)
+        } else {
+          setUsers(res.data.users)
         }
 
-        setUsers(res.data.users)
     }).catch((err) => {
         setLoading(false)
         setError(err.message)
